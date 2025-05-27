@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/emp")
 public class EmployeeController {
@@ -16,13 +14,13 @@ public class EmployeeController {
     private EmployeeService employeeService;
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createEmployee(@RequestBody EmployeeTO emp){
+    public String createEmployee(@RequestBody EmployeeTO emp){   //accepts JSON input
 return employeeService.createEmployee(emp);
     }
     @GetMapping("/get/employee")
     @ResponseStatus(HttpStatus.OK)
-    public List<Employee> getEmployee(){
-     return employeeService.getEmployee();
+    public Employee getEmployee(@RequestParam String id ){
+     return employeeService.getEmployee(id);
 
     }
     @GetMapping("/delete/employee")

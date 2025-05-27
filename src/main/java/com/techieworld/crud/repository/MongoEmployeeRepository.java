@@ -1,0 +1,52 @@
+package com.techieworld.crud.repository;
+
+import com.techieworld.crud.dto.EmployeeTO;
+import com.techieworld.crud.model.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+
+import java.math.BigDecimal;
+import java.util.Optional;
+
+@Repository
+public class MongoEmployeeRepository implements EmployeeCrudRepository {
+
+    @Autowired
+    private MongoRepository<Employee, String> mongoRepo;
+    @Override
+    public Employee getEmployee(String employeeId) {
+        Optional<Employee> optionalEmployee = mongoRepo.findById(employeeId);
+        return optionalEmployee.orElse(null);
+    }
+
+    @Override
+    public Employee createEmployee(EmployeeTO employeeTO) {
+        Employee employee = mapToEmployee(employeeTO);
+        return mongoRepo.save(employee);
+    }
+
+    @Override
+    public Employee updateEmployee(EmployeeTO employeeTO) {
+        Employee employee = mapToEmployee(employeeTO);
+        return mongoRepo.save(employee);
+    }
+
+    @Override
+    public boolean deleteEmployee(String employeeId) {
+        if (mongoRepo.existsById(employeeId)) {
+            mongoRepo.deleteById(employeeId);
+            return true;
+        }
+        return false;
+    }
+
+    private Employee mapToEmployee(EmployeeTO dto) {
+        return Employee.builder()
+                .id(dto.getId())
+                .empName(dto.getEmpName())
+                .loction(dto.getLoction())
+                .salary(dto.getSalary() != null ? dto.getSalary() : BigDecimal.ZERO)
+                .build();
+    }
+}
