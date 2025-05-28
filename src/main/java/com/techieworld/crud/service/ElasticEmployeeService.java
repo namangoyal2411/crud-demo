@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-// need to basically create 2 classes in my interface employeecrud repository these 2 classes wll take my data and will
-// save it to mongodb and es database
 @Service
 public class ElasticEmployeeService{
     @Autowired
@@ -22,10 +20,10 @@ public class ElasticEmployeeService{
         this.elasticrepo = elasticrepo;
     }
 
-    public String createEmployee(EmployeeTO employeeTO){
+    public Employee createEmployee(EmployeeTO employeeTO){
         Employee employee =elasticrepo.createEmployee(employeeTO);
 
-        return employee.getId();
+        return employee;
 
     }
     public Employee getEmployee(String id ){
@@ -34,12 +32,15 @@ public class ElasticEmployeeService{
     }
 
     public String deleteEmployee(String id ) {
-        elasticrepo.deleteEmployee(id);
-        return "true";
+        boolean result =elasticrepo.deleteEmployee(id);
+        if (result ) {
+            return "true";
+        }
+        return "false";
     }
 
-    public String updateEmployee(EmployeeTO emp) {
-        elasticrepo.updateEmployee(emp);
-        return "Update Succesfully";
+    public Employee updateEmployee(EmployeeTO emp) {
+        Employee employee= elasticrepo.updateEmployee(emp);
+        return employee;
     }
 }

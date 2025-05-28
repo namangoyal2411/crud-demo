@@ -22,10 +22,10 @@ public class MongoEmployeeService{
         this.mongorepo=mongorepo;
     }
 
-    public String createEmployee(EmployeeTO employeeTO){
+    public Employee createEmployee(EmployeeTO employeeTO){
         Employee employee = mongorepo.createEmployee(employeeTO);
 
-        return employee.getId();
+        return employee;
 
     }
     public Employee getEmployee(String id ){
@@ -34,12 +34,15 @@ public class MongoEmployeeService{
     }
 
     public String deleteEmployee(String id ) {
-        mongorepo.deleteEmployee(id);
-        return "true";
+       boolean result= mongorepo.deleteEmployee(id);
+        if (result ) {
+            return "true";
+        }
+        else return "false";
     }
 
-    public String updateEmployee(EmployeeTO emp) {
-        mongorepo.updateEmployee(emp);
-        return "Update Succesfully";
+    public Employee updateEmployee(EmployeeTO emp) {
+        Employee employee = mongorepo.updateEmployee(emp);
+        return employee;
     }
 }

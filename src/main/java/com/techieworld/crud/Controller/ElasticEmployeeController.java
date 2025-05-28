@@ -17,7 +17,7 @@ public class ElasticEmployeeController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createEmployee(@RequestBody EmployeeTO emp) {
+    public Employee createEmployee(@RequestBody EmployeeTO emp) {
         return elasticEmployeeService.createEmployee(emp);
     }
 
@@ -35,7 +35,7 @@ public class ElasticEmployeeController {
 
     @PutMapping("/update/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public String updateEmployee(@PathVariable String id, @RequestBody EmployeeTO emp) {
+    public Employee updateEmployee(@PathVariable String id, @RequestBody EmployeeTO emp) {
         return elasticEmployeeService.updateEmployee(emp);
     }
 }

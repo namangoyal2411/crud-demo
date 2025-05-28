@@ -15,7 +15,7 @@ public class MongoEmployeeController {
     private MongoEmployeeService mongoemployeeService;
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createEmployee(@RequestBody EmployeeTO emp){   //accepts JSON input
+    public Employee createEmployee(@RequestBody EmployeeTO emp){   //accepts JSON input
         return mongoemployeeService.createEmployee(emp);
     }
     @GetMapping("/get/{id}")
@@ -24,7 +24,7 @@ public class MongoEmployeeController {
         return mongoemployeeService.getEmployee(id);
 
     }
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.OK)
     public String deleteEmployee(@PathVariable String id){
         return mongoemployeeService.deleteEmployee(id);
@@ -32,7 +32,7 @@ public class MongoEmployeeController {
     }
     @PutMapping("/update/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public String updateEmployee(@PathVariable String id, @RequestBody EmployeeTO emp ){
+    public Employee updateEmployee(@PathVariable String id, @RequestBody EmployeeTO emp ){
         return mongoemployeeService.updateEmployee(emp);
     }
 }

@@ -1,9 +1,12 @@
 package com.techieworld.crud.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.math.BigDecimal;
 
@@ -11,8 +14,11 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonPropertyOrder({ "id", "empName", "loction", "salary" })
 public class EmployeeTO {
     private String id;
+    @Field(name = "employee_name")
+    @JsonProperty("employee_name")
     private String empName;
     private String loction;
     private BigDecimal salary;

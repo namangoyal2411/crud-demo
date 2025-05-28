@@ -39,7 +39,7 @@ public class ElasticEmployeeRepository implements EmployeeCrudRepository {
 
             if (response.found()) {
                 Employee emp = response.source();
-                emp.setId(response.id());  // 👈 set the ES _id
+                emp.setId(response.id());
                 return emp;
             } else {
                 return null;
@@ -77,7 +77,7 @@ public class ElasticEmployeeRepository implements EmployeeCrudRepository {
                     .index("employees")
                     .id(employee.getId())
                     .doc(employee)
-                    .docAsUpsert(true)  // insert if not present
+                    .docAsUpsert(true)
             );
 
             UpdateResponse<Employee> response = elasticsearchClient.update(request, Employee.class);
