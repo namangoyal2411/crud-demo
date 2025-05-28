@@ -34,15 +34,14 @@ public class ElasticEmployeeRepository implements EmployeeCrudRepository {
     @Override
     public Employee getEmployee(String employeeId) {
         try {
-            System.out.println("Searching employee with ID: " + employeeId);
             GetRequest getRequest = GetRequest.of(g -> g.index("employees").id(employeeId));
             GetResponse<Employee> response = elasticsearchClient.get(getRequest, Employee.class);
 
             if (response.found()) {
-                System.out.println("Document found: " + response.source());
-                return response.source();
+                Employee emp = response.source();
+                emp.setId(response.id());  // 👈 set the ES _id
+                return emp;
             } else {
-                System.out.println("Document not found for id: " + employeeId);
                 return null;
             }
         } catch (Exception e) {
