@@ -1,6 +1,6 @@
 package com.techieworld.crud.service;
 
-import com.techieworld.crud.dto.EmployeeTO;
+import com.techieworld.crud.dto.EmployeeDTO;
 import com.techieworld.crud.model.Employee;
 import com.techieworld.crud.repository.ElasticEmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +29,7 @@ class ElasticEmployeeServiceTest {
 
     @Test
     void testCreateEmployee() {
-        EmployeeTO employeeTO = EmployeeTO.builder()
+        EmployeeDTO employeeDTO = EmployeeDTO.builder()
                 .id("123")
                 .empName("John")
                 .loction("Delhi")
@@ -42,12 +42,12 @@ class ElasticEmployeeServiceTest {
                 .loction("Delhi")
                 .salary(BigDecimal.valueOf(50000))
                 .build();
-        when(elasticEmployeeRepository.createEmployee(employeeTO)).thenReturn(mockEmployee);
+        when(elasticEmployeeRepository.createEmployee(employeeDTO)).thenReturn(mockEmployee);
 
-        Employee result = elasticEmployeeService.createEmployee(employeeTO);
+        Employee result = elasticEmployeeService.createEmployee(employeeDTO);
 
         assertEquals(mockEmployee, result);
-        verify(elasticEmployeeRepository, times(1)).createEmployee(employeeTO);
+        verify(elasticEmployeeRepository, times(1)).createEmployee(employeeDTO);
     }
     @Test
     void testGetEmployee(){
@@ -60,7 +60,7 @@ class ElasticEmployeeServiceTest {
     }
     @Test
     void testUpdateEmployee(){
-      EmployeeTO MockEmployee= EmployeeTO.builder().id("123").empName("Ashwin").loction("Hyderabd").salary(BigDecimal.valueOf(90000)).build();
+      EmployeeDTO MockEmployee= EmployeeDTO.builder().id("123").empName("Ashwin").loction("Hyderabd").salary(BigDecimal.valueOf(90000)).build();
       Employee UpdatedMockEmployee = Employee.builder().id("1234").empName("Ashwin").loction("Chennai").salary( BigDecimal.valueOf(100000)).build();
       when (elasticEmployeeRepository.updateEmployee(MockEmployee)).thenReturn(UpdatedMockEmployee);
       Employee test = elasticEmployeeService.updateEmployee(MockEmployee);

@@ -1,16 +1,12 @@
 package com.techieworld.crud.service;
 
-import com.techieworld.crud.Controller.EmployeeController;
-import com.techieworld.crud.dto.EmployeeTO;
+import com.techieworld.crud.dto.EmployeeDTO;
 import com.techieworld.crud.model.Employee;
 import com.techieworld.crud.repository.ElasticEmployeeRepository;
-import com.techieworld.crud.repository.EmployeeRepository;
 import com.techieworld.crud.repository.MongoEmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 // need to basically create 2 classes in my interface employeecrud repository these 2 classes wll take my data and will
 // save it to mongodb and es database
 @Service
@@ -25,9 +21,9 @@ public class EmployeeService{
         this.elasticrepo = elasticrepo;
     }
 
-    public String createEmployee(EmployeeTO employeeTO){
-       Employee employee = mongorepo.createEmployee(employeeTO);
-      elasticrepo.createEmployee(employeeTO);
+    public String createEmployee(EmployeeDTO employeeDTO){
+       Employee employee = mongorepo.createEmployee(employeeDTO);
+      elasticrepo.createEmployee(employeeDTO);
 
         return employee.getId();
 
@@ -44,7 +40,7 @@ public class EmployeeService{
      return "true";
     }
 
-    public String updateEmployee(EmployeeTO emp) {
+    public String updateEmployee(EmployeeDTO emp) {
         mongorepo.updateEmployee(emp);
         elasticrepo.updateEmployee(emp);
         return "Update Succesfully";

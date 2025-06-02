@@ -1,6 +1,8 @@
 package com.techieworld.crud.repository;
 
-import com.techieworld.crud.dto.EmployeeTO;
+import com.techieworld.crud.RepositoryInterface.DriverRepositoryInterface;
+import com.techieworld.crud.RepositoryInterface.EmployeeRepositoryInterface;
+import com.techieworld.crud.dto.EmployeeDTO;
 import com.techieworld.crud.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -13,7 +15,7 @@ import java.util.Optional;
 public class MongoEmployeeRepository implements EmployeeCrudRepository {
 
     @Autowired
-    private MongoRepository<Employee, String> mongoRepo;
+    private EmployeeRepositoryInterface mongoRepo;
     @Override
     public Employee getEmployee(String employeeId) {
         Optional<Employee> optionalEmployee = mongoRepo.findById(employeeId);
@@ -21,14 +23,14 @@ public class MongoEmployeeRepository implements EmployeeCrudRepository {
     }
 
     @Override
-    public Employee createEmployee(EmployeeTO employeeTO) {
-        Employee employee = mapToEmployee(employeeTO);
+    public Employee createEmployee(EmployeeDTO employeeDTO) {
+        Employee employee = mapToEmployee(employeeDTO);
         return mongoRepo.save(employee);
     }
 
     @Override
-    public Employee updateEmployee(EmployeeTO employeeTO) {
-        Employee employee = mapToEmployee(employeeTO);
+    public Employee updateEmployee(EmployeeDTO employeeDTO) {
+        Employee employee = mapToEmployee(employeeDTO);
         return mongoRepo.save(employee);
     }
 
@@ -41,7 +43,7 @@ public class MongoEmployeeRepository implements EmployeeCrudRepository {
         return false;
     }
 
-    private Employee mapToEmployee(EmployeeTO dto) {
+    private Employee mapToEmployee(EmployeeDTO dto) {
         return Employee.builder()
                 .id(dto.getId())
                 .empName(dto.getEmpName())

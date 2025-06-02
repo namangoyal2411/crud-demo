@@ -9,7 +9,7 @@ import co.elastic.clients.elasticsearch.core.IndexRequest;
 import co.elastic.clients.elasticsearch.core.IndexResponse;
 import co.elastic.clients.elasticsearch.core.UpdateRequest;
 import co.elastic.clients.elasticsearch.core.UpdateResponse;
-import com.techieworld.crud.dto.EmployeeTO;
+import com.techieworld.crud.dto.EmployeeDTO;
 import com.techieworld.crud.model.Employee;
 import org.springframework.stereotype.Repository;
 
@@ -22,12 +22,12 @@ public class ElasticEmployeeRepository implements EmployeeCrudRepository {
         this.elasticsearchClient = elasticsearchClient;
     }
 
-    private Employee mapToEmployee(EmployeeTO employeeTO) {
+    private Employee mapToEmployee(EmployeeDTO employeeDTO) {
         return Employee.builder()
-                .id(employeeTO.getId())
-                .empName(employeeTO.getEmpName())
-                .salary(employeeTO.getSalary())
-                .loction(employeeTO.getLoction())
+                .id(employeeDTO.getId())
+                .empName(employeeDTO.getEmpName())
+                .salary(employeeDTO.getSalary())
+                .loction(employeeDTO.getLoction())
                 .build();
     }
 
@@ -52,8 +52,8 @@ public class ElasticEmployeeRepository implements EmployeeCrudRepository {
 
 
     @Override
-    public Employee createEmployee(EmployeeTO employeeTO) {
-        Employee employee = mapToEmployee(employeeTO);
+    public Employee createEmployee(EmployeeDTO employeeDTO) {
+        Employee employee = mapToEmployee(employeeDTO);
         try {
             IndexRequest<Employee> request = IndexRequest.of(i -> i
                     .index("employees")
@@ -70,8 +70,8 @@ public class ElasticEmployeeRepository implements EmployeeCrudRepository {
     }
 
     @Override
-    public Employee updateEmployee(EmployeeTO employeeTO) {
-        Employee employee = mapToEmployee(employeeTO);
+    public Employee updateEmployee(EmployeeDTO employeeDTO) {
+        Employee employee = mapToEmployee(employeeDTO);
         try {
             UpdateRequest<Employee, Employee> request = UpdateRequest.of(u -> u
                     .index("employees")

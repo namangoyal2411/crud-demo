@@ -1,6 +1,6 @@
 package com.techieworld.crud.service;
 
-import com.techieworld.crud.dto.EmployeeTO;
+import com.techieworld.crud.dto.EmployeeDTO;
 import com.techieworld.crud.model.Employee;
 import com.techieworld.crud.repository.MongoEmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +25,7 @@ public class MongoEmployeeServiceTest {
     }
     @Test
     void testCreateEmployee() {
-        EmployeeTO employeeTO = EmployeeTO.builder()
+        EmployeeDTO employeeDTO = EmployeeDTO.builder()
                 .id("123")
                 .empName("John")
                 .loction("Delhi")
@@ -38,12 +38,12 @@ public class MongoEmployeeServiceTest {
                 .loction("Delhi")
                 .salary(BigDecimal.valueOf(50000))
                 .build();
-        when(mongoEmployeeRepository.createEmployee(employeeTO)).thenReturn(mockEmployee);
+        when(mongoEmployeeRepository.createEmployee(employeeDTO)).thenReturn(mockEmployee);
 
-        Employee result = mongoEmployeeService.createEmployee(employeeTO);
+        EmployeeDTO result = mongoEmployeeService.createEmployee(employeeDTO,false );
 
-        assertEquals(mockEmployee, result);
-        verify(mongoEmployeeRepository, times(1)).createEmployee(employeeTO);
+        assertEquals(employeeDTO, result);
+        verify(mongoEmployeeRepository, times(1)).createEmployee(employeeDTO);
     }
     @Test
     void testGetEmployee(){
@@ -56,7 +56,7 @@ public class MongoEmployeeServiceTest {
     }
     @Test
     void testUpdateEmployee(){
-        EmployeeTO MockEmployee= EmployeeTO.builder().id("123").empName("Ashwin").loction("Hyderabd").salary(BigDecimal.valueOf(90000)).build();
+        EmployeeDTO MockEmployee= EmployeeDTO.builder().id("123").empName("Ashwin").loction("Hyderabd").salary(BigDecimal.valueOf(90000)).build();
         Employee UpdatedMockEmployee = Employee.builder().id("1234").empName("Ashwin").loction("Chennai").salary( BigDecimal.valueOf(100000)).build();
         when (mongoEmployeeRepository.updateEmployee(MockEmployee)).thenReturn(UpdatedMockEmployee);
         Employee test = mongoEmployeeService.updateEmployee(MockEmployee);

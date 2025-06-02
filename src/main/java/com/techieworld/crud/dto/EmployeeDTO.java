@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonPropertyOrder({ "id", "empName", "loction", "salary" })
-public class EmployeeTO {
+public class EmployeeDTO {
     private String id;
     @Field(name = "employee_name")
     @JsonProperty("employee_name")

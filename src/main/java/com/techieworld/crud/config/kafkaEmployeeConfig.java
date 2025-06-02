@@ -1,6 +1,6 @@
 package com.techieworld.crud.config;
 
-import com.techieworld.crud.dto.EmployeeTO;
+import com.techieworld.crud.dto.EmployeeDTO;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
@@ -13,10 +13,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class KafkaProducerConfig {
+public class kafkaEmployeeConfig {
 
     @Bean
-    public ProducerFactory<String, EmployeeTO> producerFactory() {
+    public ProducerFactory<String, EmployeeDTO> producerFactory() {
         Map<String, Object> config = new HashMap<>();
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -25,7 +25,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, EmployeeTO> kafkaTemplate() {
+    public KafkaTemplate<String, EmployeeDTO> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 }

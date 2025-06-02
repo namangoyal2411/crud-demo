@@ -1,15 +1,11 @@
 package com.techieworld.crud.service;
 
-import com.techieworld.crud.Controller.EmployeeController;
-import com.techieworld.crud.dto.EmployeeTO;
+import com.techieworld.crud.dto.EmployeeDTO;
 import com.techieworld.crud.model.Employee;
 import com.techieworld.crud.repository.ElasticEmployeeRepository;
-import com.techieworld.crud.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 @Service
 public class ElasticEmployeeService{
     @Autowired
@@ -20,8 +16,8 @@ public class ElasticEmployeeService{
         this.elasticrepo = elasticrepo;
     }
 
-    public Employee createEmployee(EmployeeTO employeeTO){
-        Employee employee =elasticrepo.createEmployee(employeeTO);
+    public Employee createEmployee(EmployeeDTO employeeDTO){
+        Employee employee =elasticrepo.createEmployee(employeeDTO);
 
         return employee;
 
@@ -39,7 +35,7 @@ public class ElasticEmployeeService{
         return "false";
     }
 
-    public Employee updateEmployee(EmployeeTO emp) {
+    public Employee updateEmployee(EmployeeDTO emp) {
         Employee employee= elasticrepo.updateEmployee(emp);
         return employee;
     }

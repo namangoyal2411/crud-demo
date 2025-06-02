@@ -1,6 +1,6 @@
 package com.techieworld.crud.Controller;
 
-import com.techieworld.crud.dto.EmployeeTO;
+import com.techieworld.crud.dto.EmployeeDTO;
 import com.techieworld.crud.model.Employee;
 import com.techieworld.crud.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ public class EmployeeController {
     private EmployeeService employeeService;
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createEmployee(@RequestBody EmployeeTO emp){   //accepts JSON input
+    public String createEmployee(@RequestBody EmployeeDTO emp){   //accepts JSON input
 return employeeService.createEmployee(emp);
     }
     @GetMapping("/get/employee")
@@ -31,7 +31,7 @@ return employeeService.createEmployee(emp);
     }
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public String updateEmployee(@RequestBody EmployeeTO emp){
+    public String updateEmployee(@RequestBody EmployeeDTO emp){
         return employeeService.updateEmployee(emp);
     }
 }

@@ -1,31 +1,32 @@
 package com.techieworld.crud.service;
 
-import com.techieworld.crud.Controller.EmployeeController;
-import com.techieworld.crud.dto.EmployeeTO;
+import com.techieworld.crud.Kafka.EmployeeProducer;
+import com.techieworld.crud.dto.EmployeeDTO;
 import com.techieworld.crud.model.Employee;
-import com.techieworld.crud.repository.EmployeeRepository;
 import com.techieworld.crud.repository.MongoEmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 // need to basically create 2 classes in my interface employeecrud repository these 2 classes wll take my data and will
 // save it to mongodb and es database
 @Service
 public class MongoEmployeeService{
     @Autowired
     private final MongoEmployeeRepository mongorepo;
-
+    @Autowired
+    private EmployeeProducer kafkaProducer;
     @Autowired
     public MongoEmployeeService(MongoEmployeeRepository mongorepo) {
         this.mongorepo=mongorepo;
     }
 
-    public Employee createEmployee(EmployeeTO employeeTO){
-        Employee employee = mongorepo.createEmployee(employeeTO);
+    public EmployeeDTO createEmployee(EmployeeDTO employeeDTO, boolean kafkaEnabled){
+        if (kafkaEnabled){
+            kafkaProducer.sendToKafka(employeeDTO);
+        }
+        else mongorepo.createEmployee(employeeDTO);
 
-        return employee;
+        return employeeDTO;
 
     }
     public Employee getEmployee(String id ){
@@ -41,7 +42,7 @@ public class MongoEmployeeService{
         else return "false";
     }
 
-    public Employee updateEmployee(EmployeeTO emp) {
+    public Employee updateEmployee(EmployeeDTO emp) {
         Employee employee = mongorepo.updateEmployee(emp);
         return employee;
     }

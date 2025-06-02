@@ -1,10 +1,8 @@
 package com.techieworld.crud.Controller;
 
-import com.techieworld.crud.dto.EmployeeTO;
+import com.techieworld.crud.dto.EmployeeDTO;
 import com.techieworld.crud.model.Employee;
 import com.techieworld.crud.service.ElasticEmployeeService;
-import com.techieworld.crud.service.EmployeeService;
-import com.techieworld.crud.service.MongoEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +15,7 @@ public class ElasticEmployeeController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public Employee createEmployee(@RequestBody EmployeeTO emp) {
+    public Employee createEmployee(@RequestBody EmployeeDTO emp) {
         return elasticEmployeeService.createEmployee(emp);
     }
 
@@ -35,7 +33,7 @@ public class ElasticEmployeeController {
 
     @PutMapping("/update/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Employee updateEmployee(@PathVariable String id, @RequestBody EmployeeTO emp) {
+    public Employee updateEmployee(@PathVariable String id, @RequestBody EmployeeDTO emp) {
         return elasticEmployeeService.updateEmployee(emp);
     }
 }
